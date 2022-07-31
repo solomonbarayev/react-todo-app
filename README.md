@@ -12,4 +12,4 @@ App is fully responsive on mobile screens and reactive to different states.
 
 ### Developer: Solomon Barayev
 
-### Live Demo: [https:solomonbarayev.github.io/react-todo-app]
+### Live Demo: [https://solomonbarayev.github.io/react-todo-app]
