@@ -62,21 +62,24 @@ function App() {
   };
 
   const onCompleteTask = (id) => {
-    console.log(tasks);
-    console.log(id);
+    // toggle tasks on complete status, and also send it to the end of the tasks array
+    let currentTask = {};
     setTasks([
-      ...tasks.map((task) => {
-        if (task.id === id) {
-          const updatedTask = {
-            ...task,
-            isComplete: !task.isComplete,
-          };
-          return updatedTask;
-        }
-        return task;
-      }),
+      ...[
+        ...tasks.map((task) => {
+          if (task.id === id) {
+            const updatedTask = {
+              ...task,
+              isComplete: !task.isComplete,
+            };
+            currentTask = updatedTask;
+            return updatedTask;
+          }
+          return task;
+        }),
+      ].filter((i) => i.id !== id),
+      currentTask,
     ]);
-    console.log(tasks);
   };
 
   return (
