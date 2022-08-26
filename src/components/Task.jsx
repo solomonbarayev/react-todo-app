@@ -19,7 +19,7 @@ function Task(props) {
           checked={props.task.isComplete}
           onChange={() => onCompleteTask(props.task.id)}
         />
-        <TaskText className="task-text" isComplete={isComplete}>
+        <TaskText className="task-text" isComplete={props.task.isComplete}>
           {props.task.text}
         </TaskText>
       </div>
