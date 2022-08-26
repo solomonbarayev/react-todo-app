@@ -5,17 +5,19 @@ import styled from 'styled-components';
 function Task(props) {
   const [isComplete, setIsComplete] = useState(false);
 
+  const { onCompleteTask } = props;
+
   return (
     <TaskItem
       className="task"
-      onDoubleClick={() => setIsComplete(!isComplete)}
-      isComplete={isComplete}
+      onDoubleClick={() => onCompleteTask(props.task.id)}
+      isComplete={props.task.isComplete}
     >
       <div>
         <Checkbox
           type="checkbox"
-          checked={isComplete}
-          onChange={() => setIsComplete(!isComplete)}
+          checked={props.task.isComplete}
+          onChange={() => onCompleteTask(props.task.id)}
         />
         <TaskText className="task-text" isComplete={isComplete}>
           {props.task.text}

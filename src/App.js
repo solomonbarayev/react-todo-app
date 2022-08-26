@@ -1,20 +1,32 @@
-import "./App.css";
-import { useState } from "react";
+import './App.css';
+import { useState, useEffect } from 'react';
 
-import Form from "./components/Form";
-import Task from "./components/Task";
+import Form from './components/Form';
+import Task from './components/Task';
+
+function getLocalStorageTasks() {
+  let localStorageTasks = JSON.parse(localStorage.getItem('tasks'));
+  if (localStorageTasks) {
+    return localStorageTasks;
+  }
+  return [];
+}
 
 function App() {
-  const [task, setTask] = useState("");
-  const [tasks, setTasks] = useState([]);
+  const [task, setTask] = useState('');
+  const [tasks, setTasks] = useState(getLocalStorageTasks());
   const [editing, setEditing] = useState(false);
-  const [editId, setEditId] = useState("");
+  const [editId, setEditId] = useState('');
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]);
 
   const onSubmit = (e) => {
     e.preventDefault();
     if (task) {
-      setTasks([{ id: Date.now(), text: task }, ...tasks]);
-      setTask("");
+      setTasks([{ id: Date.now(), text: task, isComplete: false }, ...tasks]);
+      setTask('');
     }
   };
 
@@ -46,7 +58,25 @@ function App() {
     });
     setTasks(newTasks);
     setEditing(false);
-    setTask("");
+    setTask('');
+  };
+
+  const onCompleteTask = (id) => {
+    console.log(tasks);
+    console.log(id);
+    setTasks([
+      ...tasks.map((task) => {
+        if (task.id === id) {
+          const updatedTask = {
+            ...task,
+            isComplete: !task.isComplete,
+          };
+          return updatedTask;
+        }
+        return task;
+      }),
+    ]);
+    console.log(tasks);
   };
 
   return (
@@ -78,6 +108,7 @@ function App() {
                 key={task.id}
                 onDeleteTask={onDeleteTask}
                 onEditTask={onEditTask}
+                onCompleteTask={onCompleteTask}
               />
             );
           })}
