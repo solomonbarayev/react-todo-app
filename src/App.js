@@ -137,7 +137,7 @@ function App() {
           Reset Todos
         </button>
       )}
-      {totallyDone && (
+      {totallyDone && tasks.length > 0 && (
         <Congratz>
           <h4>Woohoo! You've finished!</h4>
           <Lottie animationData={confetti} loop={true} />
