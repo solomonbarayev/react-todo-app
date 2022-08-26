@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FiEdit, FiTrash2 } from 'react-icons/fi';
 import styled from 'styled-components';
 
 function Task(props) {
-  const [isComplete, setIsComplete] = useState(false);
-
   const { onCompleteTask } = props;
 
   return (

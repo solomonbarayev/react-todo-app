@@ -1,8 +1,11 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-
+// import { useLottie } from 'lottie-react';
+import Lottie from 'lottie-react';
+import confetti from './assets/confetti.json';
 import Form from './components/Form';
 import Task from './components/Task';
+import styled from 'styled-components';
 
 function getLocalStorageTasks() {
   let localStorageTasks = JSON.parse(localStorage.getItem('tasks'));
@@ -17,9 +20,16 @@ function App() {
   const [tasks, setTasks] = useState(getLocalStorageTasks());
   const [editing, setEditing] = useState(false);
   const [editId, setEditId] = useState('');
+  const [totallyDone, setTotallyDone] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]);
+
+  useEffect(() => {
+    tasks.every((task) => task.isComplete === true)
+      ? setTotallyDone(true)
+      : setTotallyDone(false);
   }, [tasks]);
 
   const onSubmit = (e) => {
@@ -101,7 +111,6 @@ function App() {
           isEditing={editing}
         />
       )}
-
       {tasks.length !== 0 ? (
         <ul className="tasks">
           {tasks.map((task) => {
@@ -128,8 +137,21 @@ function App() {
           Reset Todos
         </button>
       )}
+      {totallyDone && (
+        <Congratz>
+          <h4>Woohoo! You've finished!</h4>
+          <Lottie animationData={confetti} loop={true} />
+        </Congratz>
+      )}
     </section>
   );
 }
 
 export default App;
+
+const Congratz = styled.div`
+  svg {
+    max-width: 50%;
+    margin-top: -30px;
+  }
+`;
