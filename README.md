@@ -10,6 +10,11 @@ Every task can be edited, and checkmarked when completed. If you wish, you may a
 
 App is fully responsive on mobile screens and reactive to different states.
 
+### Future Implementations:
+ - add categories
+ - add priority levels
+ - enable drag and drop to switch order of tasks
+
 ### Developer: Solomon Barayev
 
 ### Live Demo: [https://solomonbarayev.github.io/react-todo-app]
